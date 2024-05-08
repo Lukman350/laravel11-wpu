@@ -22,9 +22,8 @@ class Post extends Model
     }
 
     // define the setTitleAttribute method
-    public function setTitleAttribute($value)
+    public static function getSlug(string $title): string
     {
-        $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        return Str::slug($title);
     }
 }
