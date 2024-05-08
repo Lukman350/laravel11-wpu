@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -26,18 +27,49 @@ class PostController extends Controller
         ]);
     }
 
-    public function create(): View
+    public function create(Request $request): View|RedirectResponse
     {
-        if (request()->isMethod('post')) {
-            $data = request()->validate([
-                'title' => 'required',
-                'body' => 'required',
-                'author' => 'required'
+        if ($request->isMethod('post')) {
+            if (!$request->filled(['title', 'content', 'author'])) {
+                return view('posts.create', [
+                    'title' => 'Create Post',
+                    'error' => 'Please fill in all fields.'
+                ]);
+            }
+
+            $title = $request->input('title');
+            $content = $request->input('content');
+            $author = $request->input('author');
+            $slug = Post::getSlug($title);
+
+            if (strlen($title) < 10) {
+                return view('posts.create', [
+                    'title' => 'Create Post',
+                    'error' => 'Title must be at least 10 characters.'
+                ]);
+            }
+
+            if (Post::where('slug', $slug)->exists()) {
+                return view('posts.create', [
+                    'title' => 'Create Post',
+                    'error' => 'Slug already exists. Please choose a different title.'
+                ]);
+            }
+
+            Post::create([
+                'title' => $title,
+                'body' => $content,
+                'author' => $author,
+                'slug' => $slug
             ]);
 
-            Post::create($data);
 
-            return redirect('/posts');
+
+            session()->flash('success', 'Post created successfully.');
+
+            return view('posts.create', [
+                'title' => 'Create Post'
+            ]);
         }
 
         return view('posts.create', [
