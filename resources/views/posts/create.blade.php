@@ -1,8 +1,28 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <form action="/posts/create" method="POST" class="max-w-md w-full flex flex-col space-y-4">
+    <form action="/posts/create" method="POST" class="max-w-md mx-auto w-full flex flex-col space-y-4">
         @csrf
+
+        @if (!empty($error))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex flex-col gap-2"
+                role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">
+                    {{ $error }}
+                </span>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative flex flex-col gap-2"
+                role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">
+                    {{ session('success') }}
+                </span>
+            </div>
+        @endif
 
         <div class="flex flex-col space-y-2">
             <label for="title" class="text-sm font-semibold">Title</label>
