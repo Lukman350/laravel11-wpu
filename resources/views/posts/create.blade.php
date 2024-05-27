@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <form action="/posts/create" method="POST" class="max-w-md mx-auto w-full flex flex-col space-y-4">
+    <form action="/posts/create" method="POST" class="max-w-xl mx-auto w-full flex flex-col space-y-4">
         @csrf
 
         @if (!empty($error))
@@ -36,7 +36,7 @@
 
         <div class="flex flex-col space-y-2">
             <label for="content" class="text-sm font-semibold">Content</label>
-            <textarea name="content" id="content" class="border border-gray-300 p-2 rounded"></textarea>
+            <textarea name="content" id="content" class="border border-gray-300 p-2 rounded" rows="15"></textarea>
         </div>
 
         <div class="mt-4">
