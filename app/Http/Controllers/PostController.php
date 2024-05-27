@@ -67,13 +67,41 @@ class PostController extends Controller
 
             session()->flash('success', 'Post created successfully.');
 
-            return view('posts.create', [
-                'title' => 'Create Post'
-            ]);
+            return redirect('/posts');
         }
 
         return view('posts.create', [
             'title' => 'Create Post'
+        ]);
+    }
+
+    public function delete(Post $post): RedirectResponse
+    {
+        $post->delete();
+
+        session()->flash('success', 'Post deleted successfully.');
+
+        return redirect('/posts');
+    }
+
+    public function edit(Post $post, Request $request): View|RedirectResponse
+    {
+        if ($request->isMethod('put')) {
+            Post::where('id', $post->id)->update([
+                'title' => $request->input('title'),
+                'body' => $request->input('content'),
+                'author' => $request->input('author'),
+                'slug' => Post::getSlug($request->input('title'))
+            ]);
+
+            session()->flash('success', 'Post updated successfully.');
+
+            return redirect('/posts');
+        }
+
+        return view('posts.edit', [
+            'title' => 'Edit Post',
+            'post' => $post
         ]);
     }
 }
