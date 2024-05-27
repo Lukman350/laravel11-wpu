@@ -47,18 +47,19 @@
         </article>
     @endforeach
 
-    <script>
-        const btnDelete = document.querySelectorAll('#btn-delete');
-
-        for (const btn of btnDelete) {
-            btn.addEventListener('click', function() {
-                const form = this.parentElement;
-                const confirmation = confirm('Are you sure you want to delete this post?');
-
-                if (confirmation) {
-                    form.submit();
-                }
-            });
-        }
-    </script>
 </x-layout>
+
+<script>
+    const btnDelete = document.querySelectorAll('#btn-delete');
+
+    for (const btn of btnDelete) {
+        btn.addEventListener('click', function() {
+            const form = this.parentElement;
+            const confirmation = confirm('Are you sure you want to delete this post?');
+
+            if (confirmation) {
+                form.submit();
+            }
+        });
+    }
+</script>
