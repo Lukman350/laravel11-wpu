@@ -7,15 +7,13 @@ use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
-  protected static ?string $title;
-
   public function definition(): array
   {
     return [
-      'title' => static::$title ??= fake()->sentence(),
-      'body' => fake()->paragraph(),
+      'title' => fake()->sentence(),
       'author' => fake()->name(),
-      'slug' => Str::slug(static::$title ?? fake()->sentence())
+      'body' => fake()->paragraph(40),
+      'slug' => Str::slug(fake()->sentence())
     ];
   }
 }
