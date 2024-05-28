@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
@@ -102,6 +104,26 @@ class PostController extends Controller
         return view('posts.edit', [
             'title' => 'Edit Post',
             'post' => $post
+        ]);
+    }
+
+    public function author(User $user): View
+    {
+        $posts = $user->posts;
+
+        return view('posts.author', [
+            'title' => $user->name . '\'s Articles',
+            'posts' => $posts
+        ]);
+    }
+
+    public function category(Category $category): View
+    {
+        $posts = $category->posts;
+
+        return view('posts.category', [
+            'title' => $category->name . ' Articles',
+            'posts' => $posts
         ]);
     }
 }
