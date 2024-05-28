@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <form action="/posts/{{ $post['slug'] }}/edit" method="POST" class="max-w-xl mx-auto w-full flex flex-col space-y-4">
+    <form action="/posts/{{ $post->slug }}/edit" method="POST" class="max-w-xl mx-auto w-full flex flex-col space-y-4">
         @csrf
         @method('PUT')
 
@@ -28,18 +28,18 @@
         <div class="flex flex-col space-y-2">
             <label for="title" class="text-sm font-semibold">Title</label>
             <input type="text" name="title" id="title" class="border border-gray-300 p-2 rounded"
-                value="{{ $post['title'] }}">
+                value="{{ $post->title }}">
         </div>
 
         <div class="flex flex-col space-y-2">
             <label for="slug" class="text-sm font-semibold">Author</label>
             <input type="text" name="author" id="author" class="border border-gray-300 p-2 rounded"
-                value="{{ $post['author'] }}">
+                value="{{ $post->author->name }}">
         </div>
 
         <div class="flex flex-col space-y-2">
             <label for="content" class="text-sm font-semibold">Content</label>
-            <textarea name="content" id="content" class="border border-gray-300 p-2 rounded" rows="10">{{ $post['body'] }}</textarea>
+            <textarea name="content" id="content" class="border border-gray-300 p-2 rounded" rows="10">{{ $post->body }}</textarea>
         </div>
 
         <div class="mt-4">
