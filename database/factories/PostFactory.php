@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
 {
@@ -11,8 +13,9 @@ class PostFactory extends Factory
   {
     return [
       'title' => fake()->sentence(),
-      'author' => fake()->name(),
-      'body' => fake()->paragraph(40),
+      'author_id' => User::factory(),
+      'category_id' => Category::factory(),
+      'body' => fake()->paragraph(30),
       'slug' => Str::slug(fake()->sentence())
     ];
   }
