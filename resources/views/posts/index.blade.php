@@ -41,11 +41,13 @@
                     </form>
                 </div>
             </div>
-            <div class="text-base text-gray-500 ">
-                <a href="/posts/author/{{ $post->author->id }}" class="hover:underline">{{ $post->author->name }}</a>
-                on
+            <div class="text-gray-500">
+                By
+                <a href="/posts/author/{{ $post->author->username }}"
+                    class="hover:underline text-base text-gray-950">{{ $post->author->name }}</a>
+                in
                 <a href="/posts/category/{{ $post->category->slug }}"
-                    class="bg-gray-500 text-white px-2 rounded-full text-sm hover:underline">{{ Str::ucfirst($post->category->name) }}</a>
+                    class="hover:underline text-base text-gray-950">{{ Str::ucfirst($post->category->name) }}</a>
                 |
                 {{ $post->created_at->diffForHumans() }}
             </div>
