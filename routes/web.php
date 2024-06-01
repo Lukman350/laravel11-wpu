@@ -15,7 +15,7 @@ Route::group(['prefix' => 'posts'], function () {
     Route::get('/', [PostController::class, 'index']);
     Route::get('/create', [PostController::class, 'create']);
     Route::post('/create', [PostController::class, 'create']);
-    Route::get('/author/{user}', [PostController::class, 'author']);
+    Route::get('/author/{user:username}', [PostController::class, 'author']);
     Route::get('/category/{category:slug}', [PostController::class, 'category']);
     Route::get('/{post:slug}', [PostController::class, 'show']);
     Route::delete('/{post:slug}', [PostController::class, 'delete']);
