@@ -11,16 +11,13 @@
         </div>
     @endif
 
-    <div class="flex justify-end gap-4">
-        <a href="/posts/create"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:ring hover:ring-blue-300 transition ease-in-out duration-300"
-            type="button">Create
-            New Post</a>
-    </div>
-
     @if ($posts->isEmpty())
         <p class="text-center text-gray-500 text-2xl mt-8">No posts found.</p>
     @endif
+
+    <a href="/posts" class="font-medium text-blue-500 hover:underline">Back to Posts &laquo;</a>
+
+    <p class="text-center text-gray-500 text-lg mt-8">{{ count($posts) }} article(s) found by {{ $author }}</p>
 
     @foreach ($posts as $post)
         <article class="py-8 max-w-screen-xl border-b border-gray-300">
@@ -41,11 +38,12 @@
                     </form>
                 </div>
             </div>
-            <div class="text-base text-gray-500 ">
-                <p class="inline-block">{{ $post->author->name }}</p>
-                on
+            <div class="text-gray-500">
+                By
+                <p class="inline-block text-base text-gray-950">{{ $post->author->name }}</p>
+                in
                 <a href="/posts/category/{{ $post->category->slug }}"
-                    class="bg-gray-500 text-white px-2 rounded-full text-sm hover:underline">{{ Str::ucfirst($post->category->name) }}</a>
+                    class="hover:underline text-base text-gray-950">{{ Str::ucfirst($post->category->name) }}</a>
                 |
                 {{ $post->created_at->diffForHumans() }}
             </div>
@@ -58,18 +56,3 @@
     @endforeach
 
 </x-layout>
-
-<script>
-    const btnDelete = document.querySelectorAll('#btn-delete');
-
-    for (const btn of btnDelete) {
-        btn.addEventListener('click', function() {
-            const form = this.parentElement;
-            const confirmation = confirm('Are you sure you want to delete this post?');
-
-            if (confirmation) {
-                form.submit();
-            }
-        });
-    }
-</script>
