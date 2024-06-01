@@ -113,7 +113,8 @@ class PostController extends Controller
 
         return view('posts.author', [
             'title' => $user->name . '\'s Articles',
-            'posts' => $posts
+            'posts' => $posts,
+            'author' => $user->name,
         ]);
     }
 
@@ -122,7 +123,7 @@ class PostController extends Controller
         $posts = $category->posts;
 
         return view('posts.category', [
-            'title' => $category->name . ' Articles',
+            'title' => 'Articles in: ' . $category->name,
             'posts' => $posts
         ]);
     }
