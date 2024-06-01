@@ -11,13 +11,6 @@
         </div>
     @endif
 
-    <div class="flex justify-end gap-4">
-        <a href="/posts/create"
-            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:ring hover:ring-blue-300 transition ease-in-out duration-300"
-            type="button">Create
-            New Post</a>
-    </div>
-
     @if ($posts->isEmpty())
         <p class="text-center text-gray-500 text-2xl mt-8">No posts found.</p>
     @endif
@@ -28,24 +21,13 @@
                 <a href="/posts/{{ $post->slug }}" class="hover:underline">
                     <h2 class="mb-1 text-3xl tracking-tighter font-bold text-gray-900">{{ $post->title }}</h2>
                 </a>
-                <div class="flex flex-row gap-2">
-
-                    <a href="/posts/{{ $post->slug }}/edit"
-                        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:ring hover:ring-blue-300 transition ease-in-out duration-300"
-                        type="button">Edit</a>
-                    <form action="/posts/{{ $post->slug }}" method="POST" id="form-delete">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" id="btn-delete"
-                            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 hover:ring hover:ring-red-300 transition ease-in-out duration-300">Delete</button>
-                    </form>
-                </div>
             </div>
-            <div class="text-base text-gray-500 ">
-                <a href="/posts/author/{{ $post->author->id }}" class="hover:underline">{{ $post->author->name }}</a>
-                on
-                <a href="/posts/category/{{ $post->category->slug }}"
-                    class="bg-gray-500 text-white px-2 rounded-full text-sm hover:underline">{{ Str::ucfirst($post->category->name) }}</a>
+            <div class="text-gray-500">
+                By
+                <a href="/posts/author/{{ $post->author->username }}"
+                    class="hover:underline text-base text-gray-950">{{ $post->author->name }}</a>
+                in
+                <p class="inline-block text-base text-gray-950">{{ Str::ucfirst($post->category->name) }}</p>
                 |
                 {{ $post->created_at->diffForHumans() }}
             </div>
@@ -58,18 +40,3 @@
     @endforeach
 
 </x-layout>
-
-<script>
-    const btnDelete = document.querySelectorAll('#btn-delete');
-
-    for (const btn of btnDelete) {
-        btn.addEventListener('click', function() {
-            const form = this.parentElement;
-            const confirmation = confirm('Are you sure you want to delete this post?');
-
-            if (confirmation) {
-                form.submit();
-            }
-        });
-    }
-</script>
