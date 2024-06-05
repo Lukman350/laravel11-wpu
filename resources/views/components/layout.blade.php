@@ -13,11 +13,13 @@
 
 <body class="h-full">
     <div class="min-h-full">
-        <x-navbar />
+        @isset($withHeader)
+            <x-navbar />
 
-        <x-header>
-            {{ $title }}
-        </x-header>
+            <x-header>
+                {{ $title }}
+            </x-header>
+        @endisset
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
