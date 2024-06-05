@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:withHeader></x-slot:withHeader>
 
     <form action="/posts/{{ $post->slug }}/edit" method="POST" class="max-w-xl mx-auto w-full flex flex-col space-y-4">
         @csrf

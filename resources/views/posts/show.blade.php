@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:withHeader></x-slot:withHeader>
 
     <article class="py-8 max-w-screen-xl">
         <h2 class="mb-1 text-3xl tracking-tighter font-bold text-gray-900">{{ $post->title }}</h2>

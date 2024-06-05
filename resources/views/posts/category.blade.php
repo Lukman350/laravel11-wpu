@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:withHeader></x-slot:withHeader>
 
     @if (session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative flex flex-col gap-2 mb-4"
