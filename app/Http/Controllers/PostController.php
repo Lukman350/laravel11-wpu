@@ -51,21 +51,18 @@ class PostController extends Controller
                 ]);
             }
 
-            if (Post::where('slug', $slug)->exists()) {
+            try {
+                Post::create([
+                    'title' => $title,
+                    'body' => $content,
+                    'slug' => $slug
+                ]);
+            } catch (\ErrorException $error) {
                 return view('posts.create', [
                     'title' => 'Create Post',
-                    'error' => 'Slug already exists. Please choose a different title.'
+                    'error' => 'An error occurred. Please try again.'
                 ]);
             }
-
-            Post::create([
-                'title' => $title,
-                'body' => $content,
-                'author' => $author,
-                'slug' => $slug
-            ]);
-
-
 
             session()->flash('success', 'Post created successfully.');
 
